@@ -1,0 +1,240 @@
+{% extends "base_navbar.html" %}
+{% load static i18n %}
+{% block title %} {% trans 'Chat' %} {% endblock %}
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'chat/css/index.css' %}">
+{% endblock %}
+{% block scripts %}
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
+  </script>
+  <script>
+    var CSRF_TOKEN = "{{ csrf_token }}";
+    var change_thread_url = "{% url 'chat:change-thread' %}";
+  </script>
+  <script src="{% static 'chat/js/index.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+  <input type="hidden" id="profile-id" value="{{ user.profile.id }}">
+  <div class="container mt-5 pt-4 pb-5">
+    <div class="content-wrapper">
+      <div class="row gutters">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+          <div id="chat-card" class="card m-0">
+            <div class="row no-gutters">
+              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3">
+                <div class="users-container">
+
+                  <div class="input-group d-flex">
+                    <input class="form-control px-2 mx-3" placeholder="Search">
+                  </div>
+
+                  <ul class="contacts">
+
+                    {% for thread in threads %}
+
+                      <li class="person contact-li li-{{ thread.id }}" chat-id="{{ thread.id }}">
+
+                        {% if thread.first_person == user.profile %}
+
+                          {% if thread.second_person.image %}
+                            <img src="{{ thread.second_person.image.url }}" class="thread-image" data-bs-toggle="modal" data-bs-target="#{{thread.second_person.user.username}}">
+                          {% else %}
+                            <img src="{% static 'images/profile/profile.jpg' %}" class="thread-image" data-bs-toggle="modal" data-bs-target="#{{thread.second_person.user.username}}">
+                          {% endif %}
+
+                          <span class="name fw-bold">{{thread.second_person.user.username}}</span>
+                          <span class="text-muted updated-at-{{thread.pk}}">({{ thread.updated_at|date:"F d, H:i, Y" }})</span>
+
+                          <div class="modal mt-5" id="{{thread.second_person.user.username}}" tabindex="-1">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+
+                                <div class="modal-header">
+                                  <h3 class="modal-title">{{thread.second_person.user.username}}</h3>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body">
+                                  <div class="p-2 modal-field">
+                                    <svg color="black" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-telephone-fill mx-3" viewBox="0 0 16 16">
+                                      <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+                                    </svg>
+                                    <span class="mx-2 h5 text-primary">{{thread.second_person.user.phone_number}}</span>
+                                  </div>
+                                  <div class="mt-1 p-2 modal-field">
+                                    <svg color="black" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-people-fill mx-3" viewBox="0 0 16 16">
+                                      <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                      <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
+                                      <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+                                    </svg>
+                                    <span class="mx-2 h5 text-primary">{{thread.second_person.friends.all.count}}</span>
+                                  </div>
+                                </div>
+
+                                <div class="modal-footer d-flex justify-content-center">
+                                  <a href="{% url 'accounts:view-profile' thread.second_person.pk %}" class="btn btn-primary">{% trans 'See more' %}</a>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+
+                        {% else %}
+
+                          {% if thread.first_person.image %}
+                            <img src="{{ thread.first_person.image.url }}" class="thread-image" data-bs-toggle="modal" data-bs-target="#{{thread.first_person.user.username}}">
+                          {% else %}
+                            <img src="{% static 'images/profile/profile.jpg' %}" class="thread-image" data-bs-toggle="modal" data-bs-target="#{{thread.first_person.user.username}}">
+                          {% endif %}
+
+                          <span class="name fw-bold">{{thread.first_person.user.username}}</span>
+                          <span class="text-muted updated-at-{{thread.pk}}">({{ thread.updated_at|date:"F d, H:i, Y" }})</span>
+
+                          <div class="modal mt-5" id="{{thread.first_person.user.username}}" tabindex="-1">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+
+                                <div class="modal-header">
+                                  <h3 class="modal-title">{{thread.first_person.user.username}}</h3>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body">
+                                  <div class="p-2 modal-field">
+                                    <svg color="black" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-telephone-fill mx-3" viewBox="0 0 16 16">
+                                      <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+                                    </svg>
+                                    <span class="mx-2 h5 text-primary">{{thread.first_person.user.phone_number}}</span>
+                                  </div>
+                                  <div class="mt-1 p-2 modal-field">
+                                    <svg color="black" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-people-fill mx-3" viewBox="0 0 16 16">
+                                      <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                      <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
+                                      <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+                                    </svg>
+                                    <span class="mx-2 h5 text-primary">{{thread.first_person.friends.all.count}}</span>
+                                  </div>
+                                </div>
+
+                                <div class="modal-footer d-flex justify-content-center">
+                                  <a href="{% url 'accounts:view-profile' thread.first_person.pk %}" class="btn btn-primary">{% trans 'See more' %}</a>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+
+                        {% endif %}
+
+                      </li>
+
+                    {% endfor %}
+
+                  </ul>
+                </div>
+              </div>
+              <div class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-9">
+                <div class="chat-container card-body msg_card_body">
+
+                  <div class="messages-wrapper" chat-id="{{ thread.id }}"
+                       other-user-id="{% if thread.first_person == user.profile %}{{ thread.second_person.id }}{% else %}{{ thread.first_person.id }}{% endif %}">
+                    <div class="selected-user mb-3">
+                      Created at:
+                      <span class="fw-bold" id="thread_created_at">{{ thread.created_at|date:"F d, H:i, Y" }}</span> |
+                      <span class="fw-bold" id="thread_messages_count">{{ thread.messages.all.count }}</span> {% trans 'messages' %}
+                    </div>
+                    <div class="message-chat mb-4">
+                      <div class="chat-body m-0" id="chat-body">
+
+                        {% for chat in thread.messages.all %}
+
+                          {% if chat.profile == user.profile %}
+
+                            <div class="message my-message">
+                              {% if chat.profile.image %}
+                                <img class="img-circle medium-image" src="{{ chat.profile.image.url }}">
+                              {% else %}
+                                <img class="img-circle medium-image" src="{% static 'images/profile/profile.jpg' %}">
+                              {% endif %}
+                              <div class="message-body">
+                                <div class="message-body-inner">
+                                  <div class="message-info">
+                                    <h4> You </h4>
+                                    <h5>
+                                      <i class="fa fa-clock-o"></i>
+                                      {{ chat.timestamp|date:"F d, H:i, Y" }}
+                                    </h5>
+                                  </div>
+                                  <hr>
+                                  <div class="message-text">
+                                    {{ chat.message }}
+                                  </div>
+                                </div>
+                              </div>
+                              <br>
+                            </div>
+
+                          {% else %}
+
+                            <div class="message info">
+                              {% if chat.profile.image %}
+                                <img class="img-circle medium-image" src="{{ chat.profile.image.url }}">
+                              {% else %}
+                                <img class="img-circle medium-image" src="{% static 'images/profile/profile.jpg' %}">
+                              {% endif %}
+
+                              <div class="message-body">
+                                <div class="message-info">
+                                  <h4> {{ chat.profile.user.username }} </h4>
+                                  <h5>
+                                    <i class="fa fa-clock-o "></i>
+                                    {{ chat.timestamp|date:"F d, Y, H:i" }}
+                                  </h5>
+                                </div>
+                                <hr>
+                                <div class="message-text">
+                                  {{ chat.message }}
+                                </div>
+                              </div>
+                              <br>
+                            </div>
+
+                          {% endif %}
+
+                        {% endfor %}
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group mt-3 mb-0">
+                    <form id="send-message-form">
+                      <div class="input-group">
+                        <div class="input-group-append">
+                          <span class="input-group-text attach_btn "><i class="fas fa-paperclip"></i></span>
+                        </div>
+                        <input type="text" name="" id="input-message" class="form-control type_msg rounded" placeholder="{% trans 'Enter message' %}">
+                        <div class="input-group-append">
+                          <button id="submit-msg" class="btn btn-info" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                              <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

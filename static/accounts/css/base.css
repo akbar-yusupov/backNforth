@@ -1,0 +1,8 @@
+body{
+  height: 100vh;
+  background: radial-gradient(farthest-corner at left top, #00CC66, #66FFB2);
+}
+
+#content-div{
+  height: 100%;
+}

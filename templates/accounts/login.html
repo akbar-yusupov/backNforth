@@ -1,0 +1,74 @@
+{% extends "accounts/base.html" %}
+{% load static i18n %}
+{% block title %} {% trans 'Login' %} {% endblock %}
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'accounts/css/login.css' %}">
+{% endblock %}
+{% block scripts %}
+  <script src="{% static 'accounts/js/register.js' %}"></script>
+{% endblock %}
+
+
+{% block content %}
+
+  <div id="login-row" class="row d-flex align-items-center justify-content-center p-2 pb-5">
+
+    <div id="login-box" class="col col-lg-5 p-3">
+      <h2 class="mx-2 h2 fw-bold">{% trans 'Login' %}</h2>
+      <form id="login-form" method="post" class="my-4 p-3">
+
+        {% csrf_token %}
+
+        {% if messages %}
+
+          <div class="alert alert-warning" role="alert">
+
+            {% for message in messages  %}
+
+              <span class="h5 {{ message.tags }}">{{ message }}</span>
+
+            {% endfor %}
+
+          </div>
+
+        {% endif %}
+
+        {% if form.errors %}
+
+          {% for field in form %}
+
+            {% if field.errors %}
+
+              <div class="alert alert-primary" role="alert">
+                <h5>{{ field.label }}: {{ field.errors|striptags }}</h5>
+              </div>
+
+            {% endif %}
+
+          {% endfor %}
+
+        {% endif %}
+
+        <h2 class="my-3 mx-2 fw-bold font-monospace">{{ form.phone_number.label }}</h2>
+        {{ form.phone_number }}
+
+        <h2 class="my-3 mx-2 fw-bold font-monospace">{{ form.username.label }}</h2>
+        {{ form.username }}
+
+        <h5 class="my-3 mx-2">
+          {% trans "Don't have an account yet?" %}
+          <a href="{% url 'accounts:register' %}" class="text-decoration-none">
+            {% trans 'Register' %}
+          </a>
+        </h5>
+
+        <button type="submit" class="btn btn-lg btn-primary px-4 mx-2 fw-bold">
+          {% trans 'Login' %}
+        </button>
+
+      </form>
+    </div>
+
+  </div>
+
+{% endblock %}

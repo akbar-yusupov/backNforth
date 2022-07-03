@@ -1,0 +1,215 @@
+{% extends "base_navbar.html" %}
+{% load static i18n %}
+{% block title %} {% trans 'Profile Edit' %} {% endblock %}
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'accounts/css/profile/edit.css' %}">
+{% endblock %}
+{% block scripts %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js" integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+  <script>
+    var support_chat_url = "{% url 'chat:index' %}";
+    var CSRF_TOKEN = "{{ csrf_token }}";
+  </script>
+  <script src="{% static 'accounts/js/profile/edit.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+  <div class="container mt-5 py-5">
+    <div class="row flex-lg-nowrap">
+      <div class="col">
+        <div class="row">
+          <div class="col mb-3">
+            <div class="card">
+              <div class="card-body">
+                <div>
+
+                  {% if form.errors %}
+
+                    {% for field in form %}
+
+                      {% if field.errors %}
+
+                        <div class="alert alert-primary" role="alert">
+                          <h5>{{ field.label }}: {{ field.errors|striptags }}</h5>
+                        </div>
+
+                      {% endif %}
+
+                    {% endfor %}
+
+                  {% endif %}
+
+                  <div class="row">
+                    <div class="col-12 col-sm-auto mb-3">
+                      <div class="px-5">
+                        {% if user.profile.image %}
+                          <img class="border border-dark user-image" src="{{ user.profile.image.url }}">
+                        {% else %}
+                          <img class="user-image" src="{% static 'images/profile/profile.jpg'  %}">
+                        {% endif %}
+                      </div>
+                    </div>
+                    <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3 py-4">
+                      <div class=" text-sm-left mb-2 mb-sm-0">
+                        <h4>{% trans 'Username:' %} {{ user.username }}</h4>
+                        <h4>{% trans 'Phone Number:' %} {{ user.phone_number }}</h4>
+                        <h4>{% trans 'Friends:' %} {{ user.profile.friends.count }}</h4>
+                      </div>
+                      <div class="text-center text-sm-right">
+                        <h4>{% trans 'Joined Date:' %}</h4>
+                        <h5 class="fw-bold">{{ user.date_joined|date:"F d, Y" }}</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <ul class="nav nav-tabs">
+                    <li class="nav-item"><span class="active nav-link">{% trans 'Edit' %}</span></li>
+                  </ul>
+                  <div class="tab-content pt-3">
+                    <div class="tab-pane active">
+                      <form method="post" enctype="multipart/form-data">
+
+                        {% csrf_token %}
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group mb-3">
+                              <label class="col-lg-3 control-label">{% trans 'Image:' %}</label>
+
+                              {% if form.image.value %}
+
+                                <a href="{{ MEDIA_URL }}{{ form.image.value }}" class="h5 px-5">{% trans 'Current Image' %}</a>
+                                <div class="row">
+
+                                  <div class="col-9">
+                                    <div class="form-group">
+                                      <input type="file" accept="image/*" name="image" class="form-control"/>
+                                    </div>
+                                  </div>
+
+                                  <div class="col mt-1 text-center">
+                                    <div class="form-group">
+                                      <input class="form-check-input mx-0" id="image-clear_id" name="image-clear" type="checkbox">
+                                      <label class="form-check-label fw-bold">
+                                        {% trans 'Delete Image' %}
+                                      </label>
+                                    </div>
+                                  </div>
+
+                                </div>
+
+                              {% else %}
+
+                                <div class="col">
+                                    <div class="form-group">
+                                      <input type="file" accept="image/*" name="image" class="form-control"/>
+                                  </div>
+                                </div>
+
+                              {% endif %}
+
+                            </div>
+
+                            <div class="form-group mb-3">
+                              <label class="col-lg-3 control-label">{% trans 'Games:' %}</label>
+                                <select class="form-control selectpicker text-primary" name="games" id="games" multiple data-selected-text-format="count > 3" data-live-search="true" required>
+                                  {% for game in all_games %}
+
+                                    {% if game.name in preferred_games %}
+                                      <option data-content="<img src='{{ game.image.url }}' width='32px' height='32px'/><span class='mx-1 h6'>{{ game.name }}</span>" value="{{ game.id }}" selected>{{ game.name }}</option>
+                                    {% else %}
+                                      <option data-content="<img src='{{ game.image.url }}' width='32px' height='32px'/><span class='mx-1 h6'>{{ game.name }}</span>" value="{{ game.id }}">{{ game.name }}</option>
+                                    {% endif %}
+
+                                  {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="row">
+                              <div class="col">
+                                <div class="form-group">
+                                  <label>{{ form.skill.label}}</label>
+                                  {{ form.skill }}
+                                </div>
+                              </div>
+                              <div class="col">
+                                <div class="form-group">
+                                  <label>{{ form.age.label}}</label>
+                                  {{ form.age }}
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="row">
+
+                              <h3 class="text-center">{% trans 'Convenient time to play:' %}</h3>
+                              <div class="col">
+                                <div class="form-group">
+                                  <label>{{ form.utc.label}}</label>
+                                  {{ form.utc }}
+                                </div>
+                              </div>
+
+                              <div class="col">
+                                <div class="form-group">
+                                  <label>{{ form.convenient_from.label}}</label>
+                                  {{ form.convenient_from }}
+                                </div>
+                              </div>
+
+                              <div class="col">
+                                <div class="form-group">
+                                  <label>{{ form.convenient_to.label}}</label>
+                                  {{ form.convenient_to }}
+                                </div>
+                              </div>
+
+                            </div>
+
+                            <hr size="2">
+
+                            <div class="form-group">
+                              <label>{{ form.about.label }}</label>
+                              {{ form.about }}
+                            </div>
+
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col d-flex justify-content-end">
+                            <button class="btn btn-primary" type="submit">{% trans 'Save Changes' %}</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-3 mb-3">
+            <div class="card mb-3">
+              <div class="card-body">
+                <a href="{% url 'accounts:logout' %}" class="px-4 btn btn-warning text-decoration-none">{% trans 'Logout' %}</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title font-weight-bold">{% trans 'Support' %}</h6>
+                <p class="card-text">{% trans 'Get fast, free help from our friendly assistants.' %}</p>
+
+                {% if support_thread %}
+
+                  <button id="contact_button" data-pk="{{ support_thread.pk }}" class="btn btn-primary">{% trans 'Contact Us' %}</button>
+
+                {% endif %}
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

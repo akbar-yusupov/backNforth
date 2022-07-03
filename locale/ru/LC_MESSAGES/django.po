@@ -1,0 +1,421 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-27 22:45+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\accounts\forms.py:13 .\accounts\forms.py:42
+msgid "Phone"
+msgstr ""
+
+#: .\accounts\forms.py:18 .\accounts\forms.py:47
+msgid "Enter your phone number"
+msgstr ""
+
+#: .\accounts\forms.py:22 .\accounts\forms.py:51 .\accounts\models.py:16
+msgid "Enter a valid phone number (e.g. +998971234567)."
+msgstr ""
+
+#: .\accounts\forms.py:26 .\accounts\forms.py:55
+#: .\templates\accounts\profile\search.html:33
+#: .\templates\accounts\recommendations.html:120
+msgid "Username"
+msgstr ""
+
+#: .\accounts\forms.py:30 .\accounts\forms.py:59
+msgid "Enter your username"
+msgstr ""
+
+#: .\accounts\forms.py:75 .\accounts\models.py:103
+msgid "UTC"
+msgstr ""
+
+#: .\accounts\models.py:14
+msgid "Phone Number"
+msgstr ""
+
+#: .\accounts\models.py:28
+msgid "User with this phone number already exists"
+msgstr ""
+
+#: .\accounts\models.py:33 .\accounts\models.py:82
+msgid "User"
+msgstr ""
+
+#: .\accounts\models.py:34
+msgid "Users"
+msgstr ""
+
+#: .\accounts\models.py:39
+msgid "UUID"
+msgstr ""
+
+#: .\accounts\models.py:46
+msgid "Owner"
+msgstr ""
+
+#: .\accounts\models.py:48
+msgid "Number"
+msgstr ""
+
+#: .\accounts\models.py:58
+msgid "Code"
+msgstr ""
+
+#: .\accounts\models.py:59
+msgid "Codes"
+msgstr ""
+
+#: .\accounts\models.py:63
+msgid "Name"
+msgstr ""
+
+#: .\accounts\models.py:64 .\accounts\models.py:95
+#: .\templates\accounts\profile\search.html:32
+#: .\templates\accounts\recommendations.html:119
+msgid "Image"
+msgstr ""
+
+#: .\accounts\models.py:70
+msgid "Game"
+msgstr ""
+
+#: .\accounts\models.py:71 .\accounts\models.py:96
+msgid "Games"
+msgstr ""
+
+#: .\accounts\models.py:76 .\templates\accounts\recommendations.html:77
+#: .\templates\accounts\recommendations.html:84
+#: .\templates\accounts\recommendations.html:91
+#: .\templates\accounts\recommendations.html:98
+msgid "Low"
+msgstr ""
+
+#: .\accounts\models.py:77 .\templates\accounts\recommendations.html:78
+#: .\templates\accounts\recommendations.html:85
+#: .\templates\accounts\recommendations.html:92
+#: .\templates\accounts\recommendations.html:99
+msgid "Middle"
+msgstr ""
+
+#: .\accounts\models.py:78 .\templates\accounts\recommendations.html:79
+#: .\templates\accounts\recommendations.html:86
+#: .\templates\accounts\recommendations.html:93
+#: .\templates\accounts\recommendations.html:100
+msgid "High"
+msgstr ""
+
+#: .\accounts\models.py:87 .\templates\accounts\profile\search.html:35
+#: .\templates\accounts\recommendations.html:122
+msgid "Age"
+msgstr ""
+
+#: .\accounts\models.py:98 .\templates\accounts\profile\search.html:34
+#: .\templates\accounts\recommendations.html:121
+msgid "Skill"
+msgstr ""
+
+#: .\accounts\models.py:100 .\templates\accounts\profile\search.html:37
+#: .\templates\accounts\recommendations.html:124
+msgid "About"
+msgstr ""
+
+#: .\accounts\models.py:105
+msgid "From"
+msgstr ""
+
+#: .\accounts\models.py:106
+msgid "To"
+msgstr ""
+
+#: .\accounts\models.py:112
+msgid "Profile"
+msgstr ""
+
+#: .\accounts\models.py:113
+msgid "Profiles"
+msgstr ""
+
+#: .\accounts\models.py:127
+msgid "Friendship Request"
+msgstr ""
+
+#: .\accounts\models.py:128
+msgid "Friendship Requests"
+msgstr ""
+
+#: .\accounts\views.py:63
+msgid "Your account is activated"
+msgstr ""
+
+#: .\accounts\views.py:66
+msgid "You entered the wrong code"
+msgstr ""
+
+#: .\accounts\views.py:98
+msgid "User with such data doesn't exists"
+msgstr ""
+
+#: .\backNforth\settings.py:111
+msgid "English"
+msgstr ""
+
+#: .\backNforth\settings.py:112
+msgid "Russian"
+msgstr ""
+
+#: .\chat\consumers.py:61
+msgid "right now"
+msgstr ""
+
+#: .\templates\404.html:14
+msgid "The page you are looking for has not been found."
+msgstr ""
+
+#: .\templates\404.html:15
+msgid "Back to Main"
+msgstr ""
+
+#: .\templates\accounts\base.html:16
+msgid "Account"
+msgstr ""
+
+#: .\templates\accounts\login.html:3 .\templates\accounts\login.html:17
+#: .\templates\accounts\login.html:66
+#: .\templates\accounts\registration\register.html:45
+msgid "Login"
+msgstr ""
+
+#: .\templates\accounts\login.html:59
+msgid "Don't have an account yet?"
+msgstr ""
+
+#: .\templates\accounts\login.html:61
+#: .\templates\accounts\registration\register.html:3
+#: .\templates\accounts\registration\verify_phone.html:37
+msgid "Register"
+msgstr ""
+
+#: .\templates\accounts\manage_users.html:3
+msgid "Manage Users"
+msgstr ""
+
+#: .\templates\accounts\manage_users.html:28
+msgid "Friends"
+msgstr ""
+
+#: .\templates\accounts\manage_users.html:74
+msgid "From you"
+msgstr ""
+
+#: .\templates\accounts\manage_users.html:113
+msgid "To you"
+msgstr ""
+
+#: .\templates\accounts\profile\edit.html:3
+msgid "Profile Edit"
+msgstr ""
+
+#: .\templates\accounts\profile\edit.html:56
+msgid "Username:"
+msgstr ""
+
+#: .\templates\accounts\profile\edit.html:57
+msgid "Phone Number:"
+msgstr ""
+
+#: .\templates\accounts\profile\edit.html:58
+msgid "Friends:"
+msgstr ""
+
+#: .\templates\accounts\profile\edit.html:61
+msgid "Joined Date:"
+msgstr ""
+
+#: .\templates\accounts\profile\edit.html:67
+msgid "Edit"
+msgstr ""
+
+#: .\templates\accounts\profile\edit.html:77
+msgid "Image:"
+msgstr ""
+
+#: .\templates\accounts\profile\edit.html:81
+msgid "Current Image"
+msgstr ""
+
+#: .\templates\accounts\profile\edit.html:94
+msgid "Delete Image"
+msgstr ""
+
+#: .\templates\accounts\profile\edit.html:114
+msgid "Games:"
+msgstr ""
+
+#: .\templates\accounts\profile\edit.html:145
+msgid "Convenient time to play:"
+msgstr ""
+
+#: .\templates\accounts\profile\edit.html:180
+msgid "Save Changes"
+msgstr ""
+
+#: .\templates\accounts\profile\edit.html:193
+msgid "Logout"
+msgstr ""
+
+#: .\templates\accounts\profile\edit.html:198
+msgid "Support"
+msgstr ""
+
+#: .\templates\accounts\profile\edit.html:199
+msgid "Get fast, free help from our friendly assistants."
+msgstr ""
+
+#: .\templates\accounts\profile\edit.html:203
+msgid "Contact Us"
+msgstr ""
+
+#: .\templates\accounts\profile\search.html:3
+msgid "Search"
+msgstr ""
+
+#: .\templates\accounts\profile\search.html:22
+msgid "Found"
+msgstr ""
+
+#: .\templates\accounts\profile\search.html:22
+msgid "profile"
+msgstr ""
+
+#: .\templates\accounts\profile\search.html:22
+msgid "satisfying"
+msgstr ""
+
+#: .\templates\accounts\profile\search.html:22
+msgid "query"
+msgstr ""
+
+#: .\templates\accounts\profile\search.html:36
+#: .\templates\accounts\recommendations.html:123
+msgid "Convenient time"
+msgstr ""
+
+#: .\templates\accounts\profile\search.html:38
+#: .\templates\accounts\recommendations.html:125
+msgid "Request"
+msgstr ""
+
+#: .\templates\accounts\profile\search.html:85
+#: .\templates\accounts\recommendations.html:172
+msgid "More"
+msgstr ""
+
+#: .\templates\accounts\profile\search.html:89
+#: .\templates\accounts\recommendations.html:176
+msgid "SEND"
+msgstr ""
+
+#: .\templates\accounts\profile\view.html:3
+msgid "Profile View"
+msgstr ""
+
+#: .\templates\accounts\profile\view.html:28
+msgid "Games: "
+msgstr ""
+
+#: .\templates\accounts\profile\view.html:41
+msgid "Skill: "
+msgstr ""
+
+#: .\templates\accounts\profile\view.html:51
+msgid "Convenient time: "
+msgstr ""
+
+#: .\templates\accounts\profile\view.html:53
+msgid "Age: "
+msgstr ""
+
+#: .\templates\accounts\recommendations.html:3
+msgid "Recommendations"
+msgstr ""
+
+#: .\templates\accounts\recommendations.html:26
+msgid "Search by username"
+msgstr ""
+
+#: .\templates\accounts\recommendations.html:43
+#: .\templates\accounts\recommendations.html:57
+msgid "Any games"
+msgstr ""
+
+#: .\templates\accounts\recommendations.html:76
+#: .\templates\accounts\recommendations.html:83
+#: .\templates\accounts\recommendations.html:90
+#: .\templates\accounts\recommendations.html:97
+msgid "Any skill"
+msgstr ""
+
+#: .\templates\accounts\recommendations.html:104
+msgid "Apply"
+msgstr ""
+
+#: .\templates\accounts\registration\register.html:16
+msgid "Registration"
+msgstr ""
+
+#: .\templates\accounts\registration\register.html:43
+msgid "Already have an account?"
+msgstr ""
+
+#: .\templates\accounts\registration\register.html:49
+msgid "Submit"
+msgstr ""
+
+#: .\templates\accounts\registration\verify_phone.html:3
+msgid "Verify Phone"
+msgstr ""
+
+#: .\templates\accounts\registration\verify_phone.html:15
+msgid "Verify your account:"
+msgstr ""
+
+#: .\templates\accounts\registration\verify_phone.html:34
+msgid "Code:"
+msgstr ""
+
+#: .\templates\base_navbar.html:19
+msgid "Base"
+msgstr ""
+
+#: .\templates\chat\index.html:3
+msgid "Chat"
+msgstr ""
+
+#: .\templates\chat\index.html:80 .\templates\chat\index.html:127
+msgid "See more"
+msgstr ""
+
+#: .\templates\chat\index.html:151
+msgid "messages"
+msgstr ""
+
+#: .\templates\chat\index.html:223
+msgid "Enter message"
+msgstr ""

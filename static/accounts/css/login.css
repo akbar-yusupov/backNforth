@@ -1,0 +1,13 @@
+#login-row{
+  height: 100%;
+}
+
+#login-box{
+  box-shadow: 0px 2px 160px #EAEE8D;
+  background: radial-gradient(farthest-corner at left top, #B55B6D, #A05BB5);
+}
+
+#login-form{
+  background-color: white;
+  border-radius: 33px 33px 33px 33px;
+}

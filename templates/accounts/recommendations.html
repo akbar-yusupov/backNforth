@@ -1,0 +1,193 @@
+{% extends "base_navbar.html" %}
+{% load static i18n %}
+{% block title %} {% trans 'Recommendations' %} {% endblock %}
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'accounts/css/recommendations.css' %}">
+{% endblock %}
+{% block scripts %}
+  <script>
+    var send_request_url = "{% url 'accounts:send-request' %}";
+    var CSRF_TOKEN = "{{ csrf_token }}";
+  </script>
+  <script src="{% static 'accounts/js/recommendations.js' %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js" integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block content %}
+
+  <div class="event-schedule-area-two bg-color pad100">
+    <div class="container mt-5 pt-4 mb-5">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="section-title text-center">
+
+            <form class="d-flex" action="{% url 'accounts:search' %}" method="get">
+              <input class="form-control p-2" id="search-input" name="q" type="search" placeholder="{% trans 'Search by username' %}"
+                     aria-label="Search" minlength="3">
+              <button class="btn btn-sm px-1 py-2 mx-1" type="submit">
+                <svg xmlns="http://www.w3.org/2000/svg" width="90" height="30" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+              </button>
+            </form>
+
+            <hr size="2">
+
+            <form method="post">
+              {% csrf_token %}
+              <div class="form-group mb-3">
+                <select class="form-control selectpicker text-primary" name="games" id="games" multiple data-selected-text-format="count > 3" data-live-search="true" required>
+                  {% if preferred_games %}
+
+                    <option class="h6" value="any">{% trans 'Any games' %}</option>
+
+                    {% for game in all_games %}
+
+                      {% if game.name in preferred_games %}
+                        <option data-content="<img src='{{ game.image.url }}' width='32px' height='32px'/><span class='mx-1 h6'>{{ game.name }}</span>" value="{{ game.id }}" selected>{{ game.name }}</option>
+                      {% else %}
+                        <option data-content="<img src='{{ game.image.url }}' width='32px' height='32px'/><span class='mx-1 h6'>{{ game.name }}</span>" value="{{ game.id }}">{{ game.name }}</option>
+                      {% endif %}
+
+                    {% endfor %}
+
+                  {% else %}
+
+                    <option value="any" selected>{% trans 'Any games' %}</option>
+
+                    {% for game in all_games %}
+
+                      {% if game.name in preferred_games %}
+                        <option data-content="<img src='{{ game.image.url }}' width='32px' height='32px'/><span class='mx-1 h6'>{{ game.name }}</span>" value="{{ game.id }}" selected>{{ game.name }}</option>
+                      {% else %}
+                        <option data-content="<img src='{{ game.image.url }}' width='32px' height='32px'/><span class='mx-1 h6'>{{ game.name }}</span>" value="{{ game.id }}">{{ game.name }}</option>
+                      {% endif %}
+
+                    {% endfor %}
+
+                  {% endif %}
+                </select>
+              </div>
+
+              <select class="form-select mb-2" name="skill">
+                {% if skill == 'any' %}
+
+                  <option value="any" selected>{% trans 'Any skill' %}</option>
+                  <option value="1">{% trans 'Low' %}</option>
+                  <option value="2">{% trans 'Middle' %}</option>
+                  <option value="3">{% trans 'High' %}</option>
+
+                {% elif skill == 1 %}
+
+                  <option value="any">{% trans 'Any skill' %}</option>
+                  <option value="1" selected>{% trans 'Low' %}</option>
+                  <option value="2">{% trans 'Middle' %}</option>
+                  <option value="3">{% trans 'High' %}</option>
+
+                {% elif skill == 2 %}
+
+                  <option value="any">{% trans 'Any skill' %}</option>
+                  <option value="1">{% trans 'Low' %}</option>
+                  <option value="2" selected>{% trans 'Middle' %}</option>
+                  <option value="3">{% trans 'High' %}</option>
+
+                {% elif skill == 3 %}
+
+                  <option value="any">{% trans 'Any skill' %}</option>
+                  <option value="1">{% trans 'Low' %}</option>
+                  <option value="2">{% trans 'Middle' %}</option>
+                  <option value="3" selected>{% trans 'High' %}</option>
+
+                {% endif %}
+              </select>
+              <button id="submit-button" type="submit" class="btn mb-2 fw-bold">{% trans 'Apply' %}</button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade active show" id="home" role="tabpanel">
+              <div class="table-responsive">
+                <table class="table table-responsive-md">
+                  <thead>
+                  <tr>
+                    <th class="text-center h4" scope="col">{% trans 'Image' %}</th>
+                    <th class="text-center h4" scope="col" >{% trans 'Username' %}</th>
+                    <th class="text-center h4" scope="col">{% trans 'Skill' %}</th>
+                    <th class="text-center h4" scope="col">{% trans 'Age' %}</th>
+                    <th class="text-center h4" scope="col">{% trans 'Convenient time' %}</th>
+                    <th class="text-center h4" scope="col">{% trans 'About' %}</th>
+                    <th class="text-center h4" scope="col">{% trans 'Request' %}</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+
+                    {% for profile in recommendations %}
+
+                      <tr id="tr-{{profile.pk}}" class="inner-box">
+                        <th scope="row">
+                          <div class="event-img text-center">
+                            {% if profile.image %}
+                              <img class="border border-dark user-image" src="{{ profile.image.url }}">
+                            {% else %}
+                              <img class="user-image" src="{% static 'images/profile/profile.jpg'  %}">
+                            {% endif %}
+                          </div>
+                        </th>
+                        <td>
+                          <a class="text-center" href="{% url 'accounts:view-profile' profile.pk %}"><h3>{{ profile.user.username }}</h3></a>
+                        </td>
+                        <td>
+
+                          {% if profile.skill == 1 %}
+
+                            <h3 class="fw-bold text-center skill-red">{{ profile.get_skill_display }}</h3>
+
+                          {% elif profile.skill == 2 %}
+
+                            <h3 class="fw-bold text-center skill-gray">{{ profile.get_skill_display }}</h3>
+
+                          {% elif profile.skill == 3 %}
+
+                            <h3 class="fw-bold text-center skill-green">{{ profile.get_skill_display }}</h3>
+
+                          {% endif %}
+
+                        </td>
+                        <td>
+                          <h3 class="text-center">{{ profile.age }}</h3>
+                        </td>
+                        <td>
+                          <h4 class="text-center">{{ profile.utc }}</h4>
+                          <h4 class="text-center">
+                            {{ profile.convenient_from }} - {{ profile.convenient_to}}
+                          </h4>
+                        </td>
+                        <td>
+                          <h5>{{ profile.about|truncatechars:40 }}</h5><a href="{% url 'accounts:view-profile' profile.pk %}" class="btn btn-info">{% trans 'More' %}</a>
+                        </td>
+                        <td>
+                          <div class="primary-btn">
+                            <button class="btn btn-lg btn-primary send-request" data-pk="{{ profile.pk }}">{% trans 'SEND' %}</button>
+                          </div>
+                        </td>
+                      </tr>
+
+                    {% endfor %}
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

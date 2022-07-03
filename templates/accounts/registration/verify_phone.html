@@ -1,0 +1,46 @@
+{% extends "accounts/base.html" %}
+{% load static i18n %}
+{% block title %} {% trans 'Verify Phone' %} {% endblock %}
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'accounts/css/verify_phone.css' %}">
+{% endblock %}
+{% block scripts %}
+  <script src="{% static 'accounts/js/verify_phone.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+  <div id="verify-row" class="row d-flex align-items-center justify-content-center p-2 pb-5">
+    <div id="verify-box" class="col col-lg-5 py-3">
+      <h1 class="text-center text-warning fw-bold">{% trans 'Verify your account:' %}</h1>
+      <form id="verify-form" method="post" class="p-5">
+
+        {% csrf_token %}
+
+        {% if messages %}
+
+          <div class="alert alert-warning" role="alert">
+
+            {% for message in messages  %}
+
+              <span class="h5 {{ message.tags }}">{{ message }}</span>
+
+            {% endfor %}
+
+          </div>
+
+        {% endif %}
+        <small>The project is in the test version your code is:</small>
+        <br>
+        <small>{{ code }}</small>
+        <h3>{% trans 'Code:' %}</h3>
+        <input id="code" name="code" maxlength="6" type="number" class="form-control my-3">
+        <button type="submit" class="btn btn-lg btn-primary px-5 fw-bold">
+          {% trans 'Register' %}
+        </button>
+
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+.view-img {
+  height: 300px;
+  max-width: 100%;
+  vertical-align: middle;
+  border-style: none;
+}
+
+#username{
+  font-size: 60px;
+}
+
+.games-img{
+  width: 70px;
+  height: 40px;
+}
+
+.skill-red{
+  color: red;
+}
+
+.skill-gray{
+  color: gray;
+}
+
+.skill-green{
+  color: green;
+}
+
+.about-section{
+  background-color: white;
+  border-radius: 50px;
+  box-shadow:  8px 15px #5E7EFF;
+  border: 2px solid #5E7EFF;
+}
+
+.about-section .counter {
+  padding: 22px 20px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgba(31, 45, 61, 0.5);
+}
+
+.about-section .counter {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.about-section .counter .count {
+  font-weight: 700;
+  color: #20247b;
+  margin: 0 0 5px;
+}
+
+.about-section .counter p {
+  font-weight: 600;
+  margin: 0;
+}
+
+.dark-color {
+    color: #20247b;
+}

@@ -1,0 +1,13 @@
+#register-row{
+  height: 100%;
+}
+
+#register-box{
+  box-shadow: 0px 2px 160px #6DB0D7;
+  background: radial-gradient(farthest-corner at left top, #6BB5FF, blue);
+}
+
+#register-form{
+  background-color: white;
+  border-radius: 33px 33px 33px 33px;
+}

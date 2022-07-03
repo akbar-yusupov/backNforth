@@ -1,0 +1,22 @@
+#verify-row{
+  height: 100%;
+}
+
+#verify-box{
+  background-color: #6666FF;
+  border-radius: 33px 33px 0px 0px;
+}
+
+#verify-form{
+  background-color: white;
+  border-radius:44px 44px 44px 44px;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}

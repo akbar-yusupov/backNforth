@@ -1,0 +1,68 @@
+{% extends "base_navbar.html" %}
+{% load static i18n %}
+{% block title %} {% trans 'Profile View' %} {% endblock %}
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'accounts/css/profile/view.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-5 py-5">
+
+    <section class="section about-section py-5 px-5">
+      <div class="container">
+        <div class="row align-items-center mb-5">
+
+          <div class="col-lg-6">
+            <div class="about-avatar text-center">
+              {% if view_profile.image %}
+                <img class="view-img" src="{{ view_profile.image.url }}"  alt="?">
+              {% else %}
+                <img class="view-img" src="{% static 'images/profile/profile.jpg' %}" alt="?">
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="about-text">
+              <h1 id="username" class="dark-color mb-3">{{ view_profile.user.username }}</h1>
+              <span class="h2">{% trans 'Games: '%}</span>
+              {% for game in view_profile.games.all %}
+                  <span>
+                    <img class="pb-2 games-img" src="{{ game.image.url }}"/>
+                    {% if forloop.last %}
+                      <span class="h3">{{ game.name }}. </span>
+                    {% else %}
+                      <span class="h3">{{ game.name }}, </span>
+                    {% endif %}
+                  </span>
+              {% endfor %}
+              <br class="my-2">
+
+              <span class="h2">{% trans 'Skill: '%}</span>
+              {% if view_profile.skill == 1 %}
+                <span class="h3 fw-bold skill-red">{{ view_profile.get_skill_display }}</span>
+              {% elif view_profile.skill == 2 %}
+                <span class="h3 fw-bold skill-gray">{{ view_profile.get_skill_display }}</span>
+              {% elif view_profile.skill == 3 %}
+                <span class="h3 fw-bold skill-green">{{ view_profile.get_skill_display }}</span>
+              {% endif %}
+
+              <br class="my-2">
+              <span class="h2">{% trans 'Convenient time: '%}</span><span class="h4">{{ view_profile.convenient_from }} - {{ view_profile.convenient_to }}({{ view_profile.utc }})</span>
+              <br class="my-2">
+              <span class="h2">{% trans 'Age: ' %}</span><span class="h3">{{ view_profile.age }}</span>
+            </div>
+          </div>
+
+        </div>
+        <div class="counter">
+          <div class="row">
+              <h4 class="font-w-600">{{ view_profile.about|linebreaks }}</h4>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+{% endblock %}
