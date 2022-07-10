@@ -52,7 +52,7 @@ class RegistrationForm(forms.ModelForm):
 
 class LoginForm(forms.Form):
     phone_number = PhoneNumberField(
-        label=_("Phone"),
+        label=_("Phone Number"),
         required=True,
         widget=PhoneNumberPrefixWidget(
             {
